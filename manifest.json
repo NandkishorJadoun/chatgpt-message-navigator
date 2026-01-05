@@ -1,0 +1,19 @@
+{
+    "manifest_version": 3,
+    "name": "ChatGPT Message Navigator",
+    "version": "1.0",
+    "description": "Navigate long ChatGPT conversations effortlessly by jumping between messages",
+    "content_scripts": [
+        {
+            "js": [
+                "script.js"
+            ],
+            "css": [
+                "styles.css"
+            ],
+            "matches": [
+                "https://chatgpt.com/*"
+            ]
+        }
+    ]
+}
