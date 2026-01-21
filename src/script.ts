@@ -3,7 +3,7 @@ const scrollObserver = new IntersectionObserver(
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const articles = Array.from(document.querySelectorAll("article"));
-        const index = articles.indexOf(entry.target);
+        const index = articles.indexOf(entry.target as HTMLElement);
 
         document
           .querySelectorAll(".nav-btn")
@@ -17,13 +17,13 @@ const scrollObserver = new IntersectionObserver(
   {
     threshold: 0.1,
     rootMargin: "-20% 0px -20% 0px",
-  }
+  },
 );
 
 function injectNavigationButtons() {
   const chatArray = document.querySelectorAll("article");
   const threadBottomContainer = document.querySelector(
-    "#thread-bottom-container"
+    "#thread-bottom-container",
   );
 
   if (!threadBottomContainer || chatArray.length === 0) return;
@@ -69,7 +69,7 @@ const observer = new MutationObserver(() => {
   injectNavigationButtons();
 });
 
-observer.observe(document.querySelector("main"), {
+observer.observe(document.querySelector("main")!, {
   childList: true,
   subtree: true,
 });

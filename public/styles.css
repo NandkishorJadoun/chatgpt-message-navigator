@@ -1,0 +1,71 @@
+#thread-bottom-container .relative.h-0,
+#thread-bottom-container button.absolute.rounded-full {
+    display: none !important;
+}
+
+#navigate-btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px;
+    margin: 0 auto;
+    background: rgba(47, 47, 47, 0.85);
+    border-radius: 28px;
+    margin-bottom: 8px;
+    border: solid 1px #373737;
+    row-gap: 8px;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    width: 16px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    position: relative;
+}
+
+.nav-btn::after {
+    content: var(--msg-preview);
+    position: absolute;
+    bottom: 200%;
+    width: 200px;
+    background: #2f2f2f;
+    border: solid 1px #373737;
+    color: white;
+    padding: 6px 16px;
+    pointer-events: none;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.4;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    max-height: calc(1.43rem * 3);
+    overflow: hidden;
+    white-space: normal;
+}
+
+.nav-btn:hover::after {
+    opacity: 1;
+}
+
+#msg-line {
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: height 0.2s ease-in-out;
+}
+
+.nav-btn:hover #msg-line {
+    height: 90% !important;
+}
+
+.nav-btn.active-nav #msg-line {
+    height: 90% !important;
+    background-color: #ffffff;
+}
