@@ -1,5 +1,6 @@
 #thread-bottom-container .relative.h-0,
-#thread-bottom-container button.absolute.rounded-full {
+#thread-bottom-container button.absolute.rounded-full,
+#thread-bottom-container > .text-center:last-child {
     display: none !important;
 }
 
