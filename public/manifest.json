@@ -12,10 +12,10 @@
     "content_scripts": [
         {
             "js": [
-                "script.js"
+                "main.js"
             ],
             "css": [
-                "styles.css"
+                "main.css"
             ],
             "matches": [
                 "https://chatgpt.com/*"
