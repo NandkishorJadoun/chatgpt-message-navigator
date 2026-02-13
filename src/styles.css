@@ -6,22 +6,23 @@
 
 #navigate-btn-container {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    padding: 8px;
+    padding: 12px 6px;
     margin: 0 auto;
     background: rgba(47, 47, 47, 0.85);
     border-radius: 28px;
     margin-bottom: 8px;
     border: solid 1px #373737;
-    row-gap: 8px;
+    gap: 4px;
 }
 
 .nav-btn {
     display: flex;
-    align-items: end;
+    align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 20px;
+    width: 20px;
+    height: 12px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     position: relative;
@@ -30,7 +31,7 @@
 .nav-btn::after {
     content: var(--msg-preview);
     position: absolute;
-    bottom: 200%;
+    right: 200%;
     width: 200px;
     background: #2f2f2f;
     border: solid 1px #373737;
@@ -57,16 +58,16 @@
 }
 
 #msg-line {
-    width: 1px;
+    height: 1px;
     background-color: rgba(255, 255, 255, 0.6);
-    transition: height 0.2s ease-in-out;
+    transition: width 0.2s ease-in-out;
 }
 
 .nav-btn:hover #msg-line {
-    height: 90% !important;
+    width: 90% !important;
 }
 
 .nav-btn.active-nav #msg-line {
-    height: 90% !important;
+    width: 90% !important;
     background-color: #ffffff;
 }

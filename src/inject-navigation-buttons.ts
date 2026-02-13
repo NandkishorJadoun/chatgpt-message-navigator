@@ -30,7 +30,7 @@ export function injectNavigationButtons() {
 
     const line = document.createElement("div");
     line.id = "msg-line";
-    line.style.height = chat.dataset.turn === "user" ? "30%" : "60%";
+    line.style.width = chat.dataset.turn === "user" ? "30%" : "60%";
 
     btn.appendChild(line);
     btn.style.setProperty("--msg-preview", `"${text}"`);
