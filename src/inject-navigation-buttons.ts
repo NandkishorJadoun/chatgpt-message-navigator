@@ -1,18 +1,20 @@
 import { scrollObserver } from "./scroll-observer";
 
 export function injectNavigationButtons() {
-  const chatArray = document.querySelectorAll("article");
-  const threadBottomContainer = document.querySelector(
-    "#thread-bottom-container",
-  );
+  const parent = document.querySelector('div[role="presentation"]');
 
-  if (!threadBottomContainer || chatArray.length === 0) return;
+  if (!parent) return;
+
+  const chatArray = parent.querySelectorAll("article");
+  const msgContainer = parent.firstElementChild;
+
+  if (!msgContainer || chatArray.length === 0) return;
 
   let btnContainer = document.querySelector("#navigate-btn-container");
   if (!btnContainer) {
     btnContainer = document.createElement("div");
     btnContainer.id = "navigate-btn-container";
-    threadBottomContainer.prepend(btnContainer);
+    msgContainer.append(btnContainer);
   }
 
   const existingButtons = btnContainer.querySelectorAll("button");
@@ -30,7 +32,7 @@ export function injectNavigationButtons() {
 
     const line = document.createElement("div");
     line.id = "msg-line";
-    line.style.width = chat.dataset.turn === "user" ? "30%" : "60%";
+    line.style.width = chat.dataset.turn === "user" ? "40%" : "70%";
 
     btn.appendChild(line);
     btn.style.setProperty("--msg-preview", `"${text}"`);

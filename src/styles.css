@@ -1,26 +1,24 @@
 #thread-bottom-container .relative.h-0,
 #thread-bottom-container button.absolute.rounded-full,
-#thread-bottom-container > .text-center:last-child {
+#thread-bottom-container>.text-center:last-child {
     display: none !important;
 }
 
 #navigate-btn-container {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
-    padding: 12px 6px;
-    margin: 0 auto;
-    background: rgba(47, 47, 47, 0.85);
+    padding: 16px 8px;
     border-radius: 28px;
-    margin-bottom: 8px;
-    border: solid 1px #373737;
-    gap: 4px;
 }
 
 .nav-btn {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     width: 20px;
     height: 12px;
     cursor: pointer;
@@ -70,4 +68,9 @@
 .nav-btn.active-nav #msg-line {
     width: 90% !important;
     background-color: #ffffff;
+}
+
+
+div[role="presentation"]>div:first-child {
+    position: relative;
 }
