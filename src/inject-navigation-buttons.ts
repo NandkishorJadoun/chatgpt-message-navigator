@@ -1,16 +1,17 @@
 import { scrollObserver } from "./scroll-observer";
+import { createBtn } from "./createBtn";
+import { hasChatStateChanged } from "./hasChatStateChanged";
 
 export function injectNavigationButtons() {
-  const parent = document.querySelector('div[role="presentation"]');
 
+  const parent = document.querySelector('div[role="presentation"]');
   if (!parent) return;
 
-  const chatArray = parent.querySelectorAll("article");
   const msgContainer = parent.firstElementChild;
-
+  const chatArray = parent.querySelectorAll("article");
   if (!msgContainer || chatArray.length === 0) return;
 
-  let btnContainer = document.querySelector("#navigate-btn-container");
+  let btnContainer = msgContainer.querySelector("#navigate-btn-container");
   if (!btnContainer) {
     btnContainer = document.createElement("div");
     btnContainer.id = "navigate-btn-container";
@@ -18,29 +19,15 @@ export function injectNavigationButtons() {
   }
 
   const existingButtons = btnContainer.querySelectorAll("button");
-  if (existingButtons.length === chatArray.length) return;
+
+  // rerender if state changed...
+  if (!hasChatStateChanged(existingButtons, chatArray)) return;
 
   btnContainer.innerHTML = "";
 
   chatArray.forEach((chat) => {
     scrollObserver.observe(chat);
-
-    const text = chat.textContent.replace(/\s+/g, " ").trim().substring(0, 150);
-
-    const btn = document.createElement("button");
-    btn.classList.add("nav-btn");
-
-    const line = document.createElement("div");
-    line.id = "msg-line";
-    line.style.width = chat.dataset.turn === "user" ? "40%" : "70%";
-
-    btn.appendChild(line);
-    btn.style.setProperty("--msg-preview", `"${text}"`);
-
-    btn.onclick = () => {
-      chat.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
-
+    const btn = createBtn(chat)
     btnContainer.appendChild(btn);
   });
 }
