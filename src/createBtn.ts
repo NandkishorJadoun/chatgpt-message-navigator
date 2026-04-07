@@ -1,30 +1,28 @@
-export const createBtn = (articleEle: HTMLElement) => {
+export const createBtn = (messageEle: HTMLElement) => {
+  const text =
+    messageEle.textContent?.replace(/\s+/g, " ").trim().substring(0, 150) || "";
 
-    // get text and id from article message
+  const turnId = messageEle.getAttribute("data-message-id") || "";
 
-    const text = articleEle.textContent.replace(/\s+/g, " ").trim().substring(0, 150);
-    const turnId = articleEle.getAttribute("data-turn-id") || "";
+  const role = messageEle.getAttribute("data-message-author-role");
 
-    const btn = document.createElement("button");
+  const btn = document.createElement("button");
 
-    // set className, style property and data attribute
+  btn.className = "nav-btn";
+  btn.style.setProperty("--msg-preview", `"${text}"`);
+  btn.setAttribute("data-turn-id", turnId);
 
-    btn.className = "nav-btn";
-    btn.style.setProperty("--msg-preview", `"${text}"`);
-    btn.setAttribute("data-turn-id", turnId)
+  const line = document.createElement("div");
+  line.id = "msg-line";
+  line.style.width = role === "user" ? "40%" : "70%";
+  btn.appendChild(line);
 
-    const line = document.createElement("div");
+  btn.onclick = () => {
+    messageEle.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
-    // set id and width of line of button
-
-    line.id = "msg-line";
-    line.style.width = articleEle.dataset.turn === "user" ? "40%" : "70%";
-
-    btn.appendChild(line);
-
-    btn.onclick = () => {
-        articleEle.scrollIntoView({ behavior: "smooth", block: "start" });
-    };
-
-    return btn
-}
+  return btn;
+};

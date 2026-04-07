@@ -3,12 +3,14 @@ import { createBtn } from "./createBtn";
 import { hasChatStateChanged } from "./hasChatStateChanged";
 
 export function injectNavigationButtons() {
-
   const parent = document.querySelector('div[role="presentation"]');
   if (!parent) return;
 
   const msgContainer = parent.firstElementChild;
-  const chatArray = parent.querySelectorAll("article");
+  const chatArray = parent.querySelectorAll<HTMLElement>(
+    'div[data-message-author-role="user"]',
+  );
+
   if (!msgContainer || chatArray.length === 0) return;
 
   let btnContainer = msgContainer.querySelector("#navigate-btn-container");
@@ -27,7 +29,7 @@ export function injectNavigationButtons() {
 
   chatArray.forEach((chat) => {
     scrollObserver.observe(chat);
-    const btn = createBtn(chat)
+    const btn = createBtn(chat);
     btnContainer.appendChild(btn);
   });
 }
