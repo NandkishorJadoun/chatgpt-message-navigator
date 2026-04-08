@@ -14,9 +14,12 @@
     padding: 16px 8px;
     border-radius: 28px;
     opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 9999;
+    contain: layout style;
 }
 
-#navigate-btn-container:hover{
+#navigate-btn-container:hover {
     opacity: 1;
 }
 
@@ -29,6 +32,7 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     position: relative;
+    contain: layout style;
 }
 
 .nav-btn::after {
@@ -52,27 +56,28 @@
     max-height: 70vh;
     overflow: hidden;
     white-space: normal;
+    will-change: opacity;
 }
 
 .nav-btn:hover::after {
     opacity: 1;
 }
 
-#msg-line {
+.msg-line {
     height: 1px;
+    width: 40%;
     background-color: #6B8FD6;
     transition: width 0.2s ease-in-out;
 }
 
-.nav-btn:hover #msg-line {
+.nav-btn:hover .msg-line {
     width: 95% !important;
 }
 
-.nav-btn.active-nav #msg-line {
+.nav-btn.active-nav .msg-line {
     width: 95% !important;
-    background-color: #ffffff;
+    background-color: #3B5FCC;
 }
-
 
 div[role="presentation"]>div:first-child {
     position: relative;

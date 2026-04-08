@@ -1,20 +1,22 @@
-export const createBtn = (messageEle: HTMLElement) => {
+const MAX_PREVIEW_LENGTH = 200;
+
+export const createBtn = (messageEle: HTMLElement, index: number) => {
+  const rawText = messageEle.textContent || "";
   const text =
-    messageEle.textContent;
+    rawText.length > MAX_PREVIEW_LENGTH
+      ? rawText.slice(0, MAX_PREVIEW_LENGTH) + "…"
+      : rawText;
 
   const turnId = messageEle.getAttribute("data-message-id") || "";
 
-  const role = messageEle.getAttribute("data-message-author-role");
-
   const btn = document.createElement("button");
-
   btn.className = "nav-btn";
   btn.style.setProperty("--msg-preview", JSON.stringify(text));
   btn.setAttribute("data-turn-id", turnId);
+  btn.setAttribute("data-nav-index", String(index));
 
   const line = document.createElement("div");
-  line.id = "msg-line";
-  line.style.width = role === "user" ? "40%" : "70%";
+  line.className = "msg-line";
   btn.appendChild(line);
 
   btn.onclick = () => {
