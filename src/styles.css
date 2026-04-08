@@ -35,7 +35,8 @@
     content: var(--msg-preview);
     position: absolute;
     right: 200%;
-    width: 200px;
+    width: max-content;
+    max-width: 60vw;
     background: #2f2f2f;
     border: solid 1px #373737;
     color: white;
@@ -47,11 +48,8 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-    max-height: calc(1.43rem * 3);
+    height: max-content;
+    max-height: 70vh;
     overflow: hidden;
     white-space: normal;
 }

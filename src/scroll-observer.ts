@@ -2,7 +2,7 @@ export const scrollObserver = new IntersectionObserver(
   (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
-        const articles = Array.from(document.querySelectorAll("article"));
+        const articles = Array.from(document.querySelectorAll('div[data-message-author-role="user"]'));
         const index = articles.indexOf(entry.target as HTMLElement);
 
         document

@@ -1,6 +1,6 @@
 export const createBtn = (messageEle: HTMLElement) => {
   const text =
-    messageEle.textContent?.replace(/\s+/g, " ").trim().substring(0, 150) || "";
+    messageEle.textContent;
 
   const turnId = messageEle.getAttribute("data-message-id") || "";
 
@@ -9,7 +9,7 @@ export const createBtn = (messageEle: HTMLElement) => {
   const btn = document.createElement("button");
 
   btn.className = "nav-btn";
-  btn.style.setProperty("--msg-preview", `"${text}"`);
+  btn.style.setProperty("--msg-preview", JSON.stringify(text));
   btn.setAttribute("data-turn-id", turnId);
 
   const line = document.createElement("div");
