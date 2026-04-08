@@ -60,7 +60,7 @@
 
 #msg-line {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.6);
+    background-color: #6B8FD6;
     transition: width 0.2s ease-in-out;
 }
 
