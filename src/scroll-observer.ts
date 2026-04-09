@@ -1,21 +1,31 @@
+let activeBtn: Element | null = null;
+
 export const scrollObserver = new IntersectionObserver(
   (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const articles = Array.from(document.querySelectorAll("article"));
-        const index = articles.indexOf(entry.target as HTMLElement);
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
 
-        document
-          .querySelectorAll(".nav-btn")
-          .forEach((btn) => btn.classList.remove("active-nav"));
+      const target = entry.target as HTMLElement;
+      const index = target.dataset.navIndex;
+      if (index == null) continue;
 
-        const activeBtn = document.querySelectorAll(".nav-btn")[index];
-        if (activeBtn) activeBtn.classList.add("active-nav");
-      }
-    });
+      const container = document.getElementById("navigate-btn-container");
+      if (!container) continue;
+
+      const nextBtn = container.querySelector(`[data-nav-index="${index}"]`);
+      if (!nextBtn || nextBtn === activeBtn) continue;
+
+      if (activeBtn) activeBtn.classList.remove("active-nav");
+      nextBtn.classList.add("active-nav");
+      activeBtn = nextBtn;
+    }
   },
   {
     threshold: 0.1,
     rootMargin: "-20% 0px -20% 0px",
   },
 );
+
+export function resetActiveBtn() {
+  activeBtn = null;
+}

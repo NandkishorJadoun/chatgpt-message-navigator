@@ -14,9 +14,12 @@
     padding: 16px 8px;
     border-radius: 28px;
     opacity: 0.5;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 9999;
+    contain: layout style;
 }
 
-#navigate-btn-container:hover{
+#navigate-btn-container:hover {
     opacity: 1;
 }
 
@@ -29,13 +32,15 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     position: relative;
+    contain: layout style;
 }
 
 .nav-btn::after {
     content: var(--msg-preview);
     position: absolute;
     right: 200%;
-    width: 200px;
+    width: max-content;
+    max-width: 60vw;
     background: #2f2f2f;
     border: solid 1px #373737;
     color: white;
@@ -47,34 +52,32 @@
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    line-clamp: 3;
-    -webkit-line-clamp: 3;
-    max-height: calc(1.43rem * 3);
+    height: max-content;
+    max-height: 70vh;
     overflow: hidden;
     white-space: normal;
+    will-change: opacity;
 }
 
 .nav-btn:hover::after {
     opacity: 1;
 }
 
-#msg-line {
+.msg-line {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.6);
+    width: 40%;
+    background-color: #6B8FD6;
     transition: width 0.2s ease-in-out;
 }
 
-.nav-btn:hover #msg-line {
+.nav-btn:hover .msg-line {
     width: 95% !important;
 }
 
-.nav-btn.active-nav #msg-line {
+.nav-btn.active-nav .msg-line {
     width: 95% !important;
-    background-color: #ffffff;
+    background-color: #3B5FCC;
 }
-
 
 div[role="presentation"]>div:first-child {
     position: relative;
