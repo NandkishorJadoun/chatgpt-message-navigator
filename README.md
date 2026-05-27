@@ -1,94 +1,77 @@
 # ChatGPT Message Navigator
 
-A lightweight client-side tool that injects a compact set of navigation buttons into the ChatGPT conversation UI so you can quickly preview and jump to messages in a conversation.
-
-The extension adds a small, pill-style toolbar to the bottom of the ChatGPT thread. Each tiny button corresponds to a message in the thread, shows a preview on hover, and scrolls the conversation to the corresponding message on click. The currently visible message is highlighted in the toolbar.
-
----
+A tiny extension that adds a navigation bar to ChatGPT so you can quickly jump between messages in long conversations. Hover a dot to see a preview, click to scroll there.
 
 ## Features
 
-- Compact navigation bar placed at the bottom of the thread
-- Hover preview tooltip for message preview
-- Click to smoothly scroll to a specific message
-- Visual indicator for the currently visible message
-- Easy to build and inject into ChatGPT as a content script
+- Navigation bar sits on the right side of the screen
+- Hover any dot to see a preview of that message
+- Click a dot to scroll straight to that message
+- The dot for the message you're currently looking at is highlighted
+- Works with ChatGPT's dynamic updates — new messages appear automatically
 
----
-
-## How to Use
+## Setup
 
 ### 1. Prerequisites
 
 - Node.js
 - npm, yarn, or pnpm
-- A browser with access to ChatGPT  
-  <https://chatgpt.com>
+- A browser with ChatGPT open at <https://chatgpt.com>
 
-### 2. Install and Build Locally
-
-Clone the repository:
+### 2. Build it
 
 ```bash
 git clone https://github.com/NandkishorJadoun/chatgpt-message-navigator.git
 cd chatgpt-message-navigator
+pnpm install    # or npm install / yarn
+pnpm run build  # outputs dist/
 ```
 
-- Install dependencies:
+### 3. Load it into your browser
 
-```bash
-npm install
-  # or
-yarn
-  # or
-pnpm install
-```
+1. Go to `chrome://extensions/`
+2. Turn on **Developer mode** (top right)
+3. Click **Load unpacked**
+4. Pick the `dist/` folder
 
-- Build with Vite:
+Now open or refresh ChatGPT — the nav bar appears on the right side.
 
-```bash
-npm run build
-```
+### 4. Using it
 
-- The build will produce `dist/main.js` (and other assets) per vite.config.ts.
+- A row of thin vertical dots appears on the right edge of the page
+- Hover a dot → a tooltip shows the first ~150 characters of that message
+- Click a dot → the page scrolls to that message
+- The dot for whatever message is currently on screen gets highlighted
 
-### 3. Quick way to inject into ChatGPT
+## What's changed recently
 
-- You can load the built script into ChatGPT by using Developer mode in `chrome://extensions/` and load the extension (unpacked) into Chrome/Edge/Firefox and open ChatGPT.
+- **Scroll perf**: The intersection observer no longer queries the DOM on every scroll event — it uses an in-memory map instead
+- **Multiple entries**: When scrolling fast, the observer now picks the topmost intersecting message instead of cycling through all of them
+- **Cleanup**: Removed unused code and renamed variables to make the source easier to follow
+- **Dist ignored**: The `dist/` folder is now gitignored
 
-### 4. Using the toolbar inside ChatGPT
+## How it works (quick overview)
 
-- After the script is loaded, a rounded navigation bar appears near the bottom of the thread container.
-- Each tiny vertical button represents a message.
-- Hover a button to see a short preview tooltip.
-- Click a button to smoothly scroll to that message.
-- The button for the message currently visible in the viewport will be highlighted.
+- `src/main.ts` — entry point. Watches for DOM changes and URL changes so the nav bar stays in sync
+- `src/inject-navigation-buttons.ts` — finds all chat messages and builds the navigation dots
+- `src/scroll-observer.ts` — uses IntersectionObserver to track which message is visible and highlights the matching dot
+- `src/createBtn.ts` — creates each dot button with hover preview and click scrolling
+- `src/styles.css` — all the styling for the nav bar and tooltips
 
----
+## Donate
 
-## How it works (high level)
+If this extension saved you time, consider buying me a coffee:
 
-- src/main.ts initializes the injector and attaches a MutationObserver to keep navigation buttons in sync with dynamic changes.
-- src/inject-navigation-buttons.ts finds all conversation articles, builds the navigation buttons, and wires click/hover behavior.
-- src/scroll-observer.ts uses an IntersectionObserver to mark which message is currently in view and toggles the active button.
-- src/styles.css contains styling for the toolbar, buttons, and hover previews.
-- vite.config.ts defines a simple Vite build that outputs `dist/main.js`.
-
----
+**[buymeacoffee.com/yourusername](https://buymeacoffee.com/yourusername)** *(replace with your real link)*
 
 ## Contributing
 
-- Bug reports, suggestions, and PRs are welcome — please open an issue or submit a pull request.
-- Keep changes small and focused. If you propose a behavior change (e.g., different button layout), please include screenshots or short GIFs showing the new behaviour.
+Bug reports, ideas, and PRs are welcome. Open an issue or send a pull request. If you're changing how something looks, a screenshot or GIF helps a lot.
 
----
+## License
 
-## Acknowledgements
-
-- Built by Nandkishor Jadoun.
-
----
+MIT
 
 ## Contact
 
-- For questions or feedback open an issue or create a PR on the repository.
+Open an issue or PR on [GitHub](https://github.com/NandkishorJadoun/chatgpt-message-navigator).
