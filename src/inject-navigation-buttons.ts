@@ -1,16 +1,21 @@
-import { scrollObserver, resetActiveBtn } from "./scroll-observer";
+import {
+  scrollObserver,
+  resetActiveBtn,
+  setNavBtn,
+  clearNavBtns,
+} from "./scroll-observer";
 import { createBtn } from "./createBtn";
 
 const observedElements = new WeakSet<Element>();
 
 export function injectNavigationButtons() {
-  const parent = document.querySelector('div[role="presentation"]');
-  if (!parent) return;
+  const presentationContainer = document.querySelector('div[role="presentation"]');
+  if (!presentationContainer) return;
 
-  const chatArray = parent.querySelectorAll<HTMLElement>("section[data-turn-id]");
-  if (chatArray.length === 0) {
-    const old = document.getElementById("navigate-btn-container");
-    if (old) old.remove();
+  const messageSections = presentationContainer.querySelectorAll<HTMLElement>("section[data-turn-id]");
+  if (messageSections.length === 0) {
+    const existingContainer = document.getElementById("navigate-btn-container");
+    if (existingContainer) existingContainer.remove();
     return;
   }
 
@@ -21,43 +26,45 @@ export function injectNavigationButtons() {
     document.body.appendChild(btnContainer);
   }
 
-  const existingBtns = btnContainer.querySelectorAll<HTMLButtonElement>(
+  const existingButtons = btnContainer.querySelectorAll<HTMLButtonElement>(
     "button[data-turn-id]",
   );
 
-  const wantedIds: string[] = [];
-  for (let i = 0; i < chatArray.length; i++) {
-    wantedIds.push(chatArray[i].getAttribute("data-turn-id") || "");
+  const currentTurnIds: string[] = [];
+  for (let i = 0; i < messageSections.length; i++) {
+    currentTurnIds.push(messageSections[i].getAttribute("data-turn-id") || "");
   }
 
-  if (existingBtns.length === wantedIds.length) {
-    let same = true;
-    for (let i = 0; i < wantedIds.length; i++) {
+  if (existingButtons.length === currentTurnIds.length) {
+    let isIdentical = true;
+    for (let i = 0; i < currentTurnIds.length; i++) {
       if (
-        (existingBtns[i].getAttribute("data-turn-id") || "") !== wantedIds[i]
+        (existingButtons[i].getAttribute("data-turn-id") || "") !== currentTurnIds[i]
       ) {
-        same = false;
+        isIdentical = false;
         break;
       }
     }
-    if (same) return;
+    if (isIdentical) return;
   }
 
   resetActiveBtn();
   btnContainer.innerHTML = "";
+  clearNavBtns();
 
   const fragment = document.createDocumentFragment();
 
-  for (let i = 0; i < chatArray.length; i++) {
-    const chat = chatArray[i];
-    chat.dataset.navIndex = String(i);
+  for (let i = 0; i < messageSections.length; i++) {
+    const section = messageSections[i];
+    section.dataset.navIndex = String(i);
 
-    if (!observedElements.has(chat)) {
-      scrollObserver.observe(chat);
-      observedElements.add(chat);
+    if (!observedElements.has(section)) {
+      scrollObserver.observe(section);
+      observedElements.add(section);
     }
 
-    const btn = createBtn(chat, i);
+    const btn = createBtn(section);
+    setNavBtn(String(i), btn);
     fragment.appendChild(btn);
   }
 

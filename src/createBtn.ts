@@ -1,13 +1,12 @@
-export const createBtn = (articleEle: HTMLElement, index: number) => {
-    const turnId = articleEle.getAttribute("data-turn-id") || "";
+export const createBtn = (messageSection: HTMLElement) => {
+    const turnId = messageSection.getAttribute("data-turn-id") || "";
     const btn = document.createElement("button");
     btn.className = "nav-btn";
     btn.setAttribute("data-turn-id", turnId);
-    btn.setAttribute("data-nav-index", String(index));
 
     const line = document.createElement("div");
     line.id = "msg-line";
-    line.style.width = articleEle.dataset.turn === "user" ? "40%" : "70%";
+    line.style.width = messageSection.dataset.turn === "user" ? "40%" : "70%";
     btn.appendChild(line);
 
     let cachedText = "";
@@ -21,14 +20,14 @@ export const createBtn = (articleEle: HTMLElement, index: number) => {
 
         if (!target) return;
 
-        const rawText = (target.textContent)
+        const previewText = target.textContent
             .replace(/\s+/g, " ")
             .trim()
             .substring(0, 150);
 
-        if (!rawText) return
+        if (!previewText) return
 
-        cachedText = rawText
+        cachedText = previewText
         btn.style.setProperty("--msg-preview", JSON.stringify(cachedText));
     })
 

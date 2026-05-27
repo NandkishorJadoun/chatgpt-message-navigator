@@ -9,7 +9,7 @@ function debounce(fn: () => void, ms: number) {
   };
 }
 
-const debouncedInject = debounce(injectNavigationButtons, 300);
+const debouncedNavigation = debounce(injectNavigationButtons, 300);
 
 // Wait for React hydration, then inject
 function tryInject() {
@@ -27,16 +27,16 @@ function startObserver() {
     setTimeout(startObserver, 500);
     return;
   }
-  const observer = new MutationObserver(debouncedInject);
+  const observer = new MutationObserver(debouncedNavigation);
   observer.observe(main, { childList: true, subtree: true });
 }
 startObserver();
 
-let lastUrl = location.href;
-const urlObserver = new MutationObserver(() => {
-  if (location.href !== lastUrl) {
-    lastUrl = location.href;
+let previousUrl = location.href;
+const urlChangeObserver = new MutationObserver(() => {
+  if (location.href !== previousUrl) {
+    previousUrl = location.href;
     setTimeout(injectNavigationButtons, 500);
   }
 });
-urlObserver.observe(document.body, { childList: true, subtree: false });
+urlChangeObserver.observe(document.body, { childList: true, subtree: false });
