@@ -1,6 +1,6 @@
 # ChatGPT Message Navigator
 
-A tiny extension that adds a navigation bar to ChatGPT so you can quickly jump between messages in long conversations. Hover a button to see a preview, click to scroll there.
+A tiny extension that adds a navigation bar and quick-delete buttons to ChatGPT so you can quickly jump between messages and clean up your chat list.
 
 ## Features
 
@@ -8,6 +8,8 @@ A tiny extension that adds a navigation bar to ChatGPT so you can quickly jump b
 - Hover any button to see a preview of that message
 - Click a button to scroll straight to that message
 - The button for the message you're currently looking at is highlighted
+- **Quick delete button** to remove the chats in the sidebar.
+- **Light mode support**: tooltips and navigation lines automatically adapt to your theme
 
 ## Setup
 
@@ -37,13 +39,15 @@ Now open or refresh ChatGPT, you'll see the nav bar appears on the right side.
 
 ### 4. Using it
 
-- A row of thin vertical dots appears on the right edge of the page
-- Hover a dot, it will show a tooltip shows the starting characters of that message
-- Click a dot and it'll send you to that message
-- The dot for whatever message is currently on screen gets highlighted
+- A row of thin vertical lines appears on the right edge of the page
+- Hover a line to see a tooltip with the first ~150 characters of that message
+- Click a line to scroll straight to that message
+- The line for whatever message is currently on screen is highlighted
 
 ## What's changed recently
 
+- **Quick delete**: All chats in the sidebar have a X button now, click it to permanently remove chats — no confirmation dialog
+- **Light mode**: The tooltip and nav bar now respect `prefers-color-scheme` — white background with dark text in light mode
 - **Scroll perf**: The intersection observer no longer queries the DOM on every scroll event — it uses an in-memory map instead
 - **Multiple entries**: When scrolling fast, the observer now picks the topmost intersecting message instead of cycling through all of them
 - **Cleanup**: Removed unused code and renamed variables to make the source easier to follow
