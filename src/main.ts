@@ -1,4 +1,5 @@
 import { injectNavigationButtons } from "./inject-navigation-buttons";
+import { enhanceSidebar } from "./quick-delete-chat";
 import "./styles.css";
 
 function debounce(fn: () => void, ms: number) {
@@ -11,7 +12,6 @@ function debounce(fn: () => void, ms: number) {
 
 const debouncedNavigation = debounce(injectNavigationButtons, 300);
 
-// Wait for React hydration, then inject
 function tryInject() {
   if (document.querySelector('div[role="presentation"]')) {
     injectNavigationButtons();
@@ -32,11 +32,24 @@ function startObserver() {
 }
 startObserver();
 
+function tryInjectSidebar() {
+  if (document.querySelector('[aria-label="Chat history"]')) {
+    enhanceSidebar();
+  } else {
+    setTimeout(tryInjectSidebar, 500);
+  }
+}
+tryInjectSidebar();
+
 let previousUrl = location.href;
 const urlChangeObserver = new MutationObserver(() => {
   if (location.href !== previousUrl) {
     previousUrl = location.href;
-    setTimeout(injectNavigationButtons, 500);
+    setTimeout(() => {
+      injectNavigationButtons();
+      enhanceSidebar();
+    }, 500);
   }
 });
-urlChangeObserver.observe(document.body, { childList: true, subtree: false });
+
+urlChangeObserver.observe(document.body, { childList: true, subtree: true });

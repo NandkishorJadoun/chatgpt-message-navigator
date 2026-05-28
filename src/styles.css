@@ -17,7 +17,7 @@
     transition: opacity 0.2s ease-in-out;
 }
 
-#navigate-btn-container:hover{
+#navigate-btn-container:hover {
     opacity: 1;
 }
 
@@ -84,4 +84,29 @@ section[data-turn-id] {
 
 div[role="presentation"]>div:first-child {
     position: relative;
+}
+
+@media (prefers-color-scheme: light) {
+    .nav-btn::after {
+        background: white;
+        border-color: #e5e5e5;
+        color: black;
+    }
+
+    #msg-line {
+        background-color: rgba(0, 0, 0, 0.65);
+    }
+
+    .nav-btn.active-nav #msg-line {
+        background-color: black;
+    }
+}
+
+.delete-button {
+    color: rgba(248, 100, 100, 0.75);
+    transition: color 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+    color: rgb(248, 100, 100);
 }
