@@ -1,6 +1,6 @@
-# ChatGPT Message Navigator
+# AI Chat Manager
 
-A tiny extension that adds a navigation bar and quick-delete buttons to ChatGPT so you can quickly jump between messages and clean up your chat list.
+A tiny extension that adds a navigation bar and quick-delete buttons to ChatGPT so you can quickly jump between messages and clean up your chat list. Future versions will also support Claude and Gemini.
 
 ## Features
 
@@ -22,8 +22,8 @@ A tiny extension that adds a navigation bar and quick-delete buttons to ChatGPT 
 ### 2. Build it
 
 ```bash
-git clone https://github.com/NandkishorJadoun/chatgpt-message-navigator.git
-cd chatgpt-message-navigator
+git clone https://github.com/NandkishorJadoun/ai-chat-manager.git
+cd ai-chat-manager
 pnpm install
 pnpm run build
 ```
@@ -53,6 +53,13 @@ Now open or refresh ChatGPT, you'll see the nav bar appears on the right side.
 - **Cleanup**: Removed unused code and renamed variables to make the source easier to follow
 - **Dist ignored**: The `dist/` folder is now gitignored
 
+## Roadmap
+
+- **Claude support** — manage Anthropic Claude conversations
+- **Gemini support** — manage Google Gemini conversations
+
+The goal is to be a universal AI chat manager that works across all major platforms.
+
 ## Donate
 
 If this extension saved you time, consider buying me a coffee:
@@ -65,4 +72,4 @@ Bug reports, ideas, and PRs are welcome. Open an issue or send a pull request. I
 
 ## Contact
 
-Open an issue or PR on [GitHub](https://github.com/NandkishorJadoun/chatgpt-message-navigator).
+Open an issue or PR on [GitHub](https://github.com/NandkishorJadoun/ai-chat-manager).
