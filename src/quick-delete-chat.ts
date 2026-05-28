@@ -1,3 +1,13 @@
+const ICON_DELETE = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15">
+  <path d="M0 0h15v15H0z" fill="none" /><path fill="currentColor" d="M3.64 2.27L7.5 6.13l3.84-3.84c.17-.18.41-.29.66-.29c.55 0 1 .45 1 1c0 .25-.09.49-.27.66L8.84 7.5l3.89 3.89c.16.16.26.38.27.61c0 .55-.45 1-1 1a.93.93 0 0 1-.69-.27L7.5 8.87l-3.85 3.85c-.17.18-.4.28-.65.28c-.55 0-1-.45-1-1c0-.25.09-.49.27-.66L6.16 7.5L2.27 3.61A.93.93 0 0 1 2 3c0-.55.45-1 1-1c.24 0 .47.1.64.27" />
+</svg>`;
+const ICON_SPINNER = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+  <path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity=".5" />
+  <path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z">
+  <animateTransform attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite" to="360 12 12" type="rotate" />
+  </path>
+</svg>`;
+
 export function enhanceSidebar() {
   const recentChatsContainer = document.querySelector<HTMLElement>('[class*="group/sidebar-expando-section"]');
 
@@ -17,9 +27,7 @@ function injectDeleteButtons(nav: Element) {
     if (item.querySelector(".delete-button")) continue;
 
     const deleteButton = document.createElement("button");
-    deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15">
-  <path d="M0 0h15v15H0z" fill="none" /><path fill="currentColor" d="M3.64 2.27L7.5 6.13l3.84-3.84c.17-.18.41-.29.66-.29c.55 0 1 .45 1 1c0 .25-.09.49-.27.66L8.84 7.5l3.89 3.89c.16.16.26.38.27.61c0 .55-.45 1-1 1a.93.93 0 0 1-.69-.27L7.5 8.87l-3.85 3.85c-.17.18-.4.28-.65.28c-.55 0-1-.45-1-1c0-.25.09-.49.27-.66L6.16 7.5L2.27 3.61A.93.93 0 0 1 2 3c0-.55.45-1 1-1c.24 0 .47.1.64.27" />
-</svg>`;
+    deleteButton.innerHTML = ICON_DELETE;
 
     deleteButton.className = "delete-button";
 
@@ -28,12 +36,7 @@ function injectDeleteButtons(nav: Element) {
       e.preventDefault();
 
       deleteButton.disabled = true;
-      deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-  <path d="M0 0h24v24H0z" fill="none" /><path fill="currentColor" d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z" opacity=".5" />
-  <path fill="currentColor" d="M20 12h2A10 10 0 0 0 12 2V4A8 8 0 0 1 20 12Z">
-  <animateTransform attributeName="transform" dur="1s" from="0 12 12" repeatCount="indefinite" to="360 12 12" type="rotate" />
-  </path>
-</svg>`
+      deleteButton.innerHTML = ICON_SPINNER;
 
       const pattern = new URLPattern({ pathname: '/c/:id' });
       const match = pattern.exec(item.href);
@@ -50,9 +53,7 @@ function injectDeleteButtons(nav: Element) {
         item.style.display = "none"
       } else {
         deleteButton.disabled = false;
-        deleteButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 15 15">
-  <path d="M0 0h15v15H0z" fill="none" /><path fill="currentColor" d="M3.64 2.27L7.5 6.13l3.84-3.84c.17-.18.41-.29.66-.29c.55 0 1 .45 1 1c0 .25-.09.49-.27.66L8.84 7.5l3.89 3.89c.16.16.26.38.27.61c0 .55-.45 1-1 1a.93.93 0 0 1-.69-.27L7.5 8.87l-3.85 3.85c-.17.18-.4.28-.65.28c-.55 0-1-.45-1-1c0-.25.09-.49.27-.66L6.16 7.5L2.27 3.61A.93.93 0 0 1 2 3c0-.55.45-1 1-1c.24 0 .47.1.64.27" />
-</svg>`
+        deleteButton.innerHTML = ICON_DELETE;
       }
     })
 
